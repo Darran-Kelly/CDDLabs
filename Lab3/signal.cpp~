@@ -1,0 +1,36 @@
+#include "Semaphore.h"
+#include <iostream>
+#include <thread>
+
+int c=0;
+
+void taskOne(std::shared_ptr<Semaphore> mutex){
+  mutex->Wait();
+  std::cout<<"Bob one is gone to lunch" << " " << c << std::endl;
+  c++;
+  mutex->Signal();
+}
+
+void taskTwo(std::shared_ptr<Semaphore> mutex){
+  mutex->Wait();
+  std::cout<<"Bob Two is gone to lunch" << " " << c << std::endl;
+  c++;
+  mutex->Signal();
+}
+
+
+
+int main(void){
+  std::thread threadOne, threadTwo;
+  std::shared_ptr<Semaphore> mutex( new Semaphore);
+  threadOne=std::thread(taskTwo, mutex);
+  threadTwo=std::thread(taskOne, mutex);
+  /**< Launch the threads  */
+  threadOne.join();
+  threadTwo.join();
+  threadOne.join();
+  threadOne.join();
+  threadTwo.join();
+  threadOne.join();
+  return 0;
+}
