@@ -18,7 +18,7 @@ int main(void){
   std::thread bob3(lunchBreak, mutex);
   /**< Launch the threads  */
   bob1.join();
-  bob2.join(
+  bob2.join();
   bob3.join();
   return 0;
 }
