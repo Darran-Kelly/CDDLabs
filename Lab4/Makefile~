@@ -1,0 +1,18 @@
+
+ODIR=obj
+LDIR =../lib
+
+
+
+Signal: Signal Semaphore.h Semaphore.cpp barrier.cpp 
+	g++ -std=c++11 -pthread -o go  Semaphore.cpp barrier.cpp Semaphore.h $(DEBUGFILE)
+
+DEBUG: DEBUGFILE = -DDEBUG
+DEBUG: Signal
+
+
+.PHONY: clean
+
+
+clean:
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ 

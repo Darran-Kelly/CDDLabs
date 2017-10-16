@@ -1,0 +1,51 @@
+\hypertarget{barrier_8cpp}{}\section{barrier.\+cpp File Reference}
+\label{barrier_8cpp}\index{barrier.\+cpp@{barrier.\+cpp}}
+{\ttfamily \#include \char`\"{}Semaphore.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+Include dependency graph for barrier.\+cpp\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{barrier_8cpp_a8ab7df6d74dcc96eed8d52fc7b8275d9}{lunch\+Break} (std\+::shared\+\_\+ptr$<$ \hyperlink{class_semaphore}{Semaphore} $>$ mutex, std\+::shared\+\_\+ptr$<$ \hyperlink{class_semaphore}{Semaphore} $>$ barries, std\+::shared\+\_\+ptr$<$ \hyperlink{class_semaphore}{Semaphore} $>$ turnstile)
+\item 
+int \hyperlink{barrier_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{barrier_8cpp_a4e1e0e72dd773439e333c84dd762a9c3}{c} =0
+\item 
+int \hyperlink{barrier_8cpp_a76f11d9a0a47b94f72c2d0e77fb32240}{n} =3
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{barrier_8cpp_a8ab7df6d74dcc96eed8d52fc7b8275d9}\label{barrier_8cpp_a8ab7df6d74dcc96eed8d52fc7b8275d9}} 
+\index{barrier.\+cpp@{barrier.\+cpp}!lunch\+Break@{lunch\+Break}}
+\index{lunch\+Break@{lunch\+Break}!barrier.\+cpp@{barrier.\+cpp}}
+\subsubsection{\texorpdfstring{lunch\+Break()}{lunchBreak()}}
+{\footnotesize\ttfamily void lunch\+Break (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \hyperlink{class_semaphore}{Semaphore} $>$}]{mutex,  }\item[{std\+::shared\+\_\+ptr$<$ \hyperlink{class_semaphore}{Semaphore} $>$}]{barries,  }\item[{std\+::shared\+\_\+ptr$<$ \hyperlink{class_semaphore}{Semaphore} $>$}]{turnstile }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{barrier_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{barrier_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{barrier.\+cpp@{barrier.\+cpp}!main@{main}}
+\index{main@{main}!barrier.\+cpp@{barrier.\+cpp}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+$<$ Launch the threads 
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{barrier_8cpp_a4e1e0e72dd773439e333c84dd762a9c3}\label{barrier_8cpp_a4e1e0e72dd773439e333c84dd762a9c3}} 
+\index{barrier.\+cpp@{barrier.\+cpp}!c@{c}}
+\index{c@{c}!barrier.\+cpp@{barrier.\+cpp}}
+\subsubsection{\texorpdfstring{c}{c}}
+{\footnotesize\ttfamily int c =0}
+
+\mbox{\Hypertarget{barrier_8cpp_a76f11d9a0a47b94f72c2d0e77fb32240}\label{barrier_8cpp_a76f11d9a0a47b94f72c2d0e77fb32240}} 
+\index{barrier.\+cpp@{barrier.\+cpp}!n@{n}}
+\index{n@{n}!barrier.\+cpp@{barrier.\+cpp}}
+\subsubsection{\texorpdfstring{n}{n}}
+{\footnotesize\ttfamily int n =3}
+
