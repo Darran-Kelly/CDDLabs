@@ -1,3 +1,8 @@
+/*!
+*	Name: Darren Kelly
+*	Date: 17/10/2017
+*/
+
 #include <mutex>
 #include <condition_variable>
 

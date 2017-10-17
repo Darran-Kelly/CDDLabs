@@ -1,3 +1,9 @@
+/*!
+*	Name: Darren Kelly
+*	Date: 17/10/2017
+*       Purpose: To create a reusable barries for a thread.
+*/
+
 #include "Semaphore.h"
 #include <iostream>
 #include <thread>
@@ -7,39 +13,47 @@
 int c=0; // keep a count of the threads
 int n=3; // declare number of threads
 
-void lunchBreak(std::shared_ptr<Semaphore> mutex, std::shared_ptr<Semaphore> barries, std::shared_ptr<Semaphore> turnstile){
+
+/**< A method for an reusable barrier. */
+void lunchBreak(std::shared_ptr<Semaphore> mutex, std::shared_ptr<Semaphore> turnstileA, std::shared_ptr<Semaphore> turnstileB){
   mutex->Wait();
   c++;
-  std::cout<<"Bob is gone to lunch" << " " << c << std::endl;
+
+  /**< A test to see if thread are apearing in the right order. */
+  std::cout<<"Bob is gone to lunch" << " " << c << std::endl; 
   if(c==n){
-    turnstile->Wait();
-    barries->Signal();
+    turnstileB->Wait();
+    turnstileA->Signal();
   }
   mutex->Signal();
   
-  barries->Wait();
-  barries->Signal();
+  turnstileA->Wait();
+  turnstileA->Signal();
 
   mutex->Wait();
   c--;
   if(c==0){
-    barries->Wait();
-    turnstile->Signal();
+    turnstileA->Wait();
+    turnstileB->Signal();
   }
   mutex->Signal();
   
-  turnstile->Wait();
-  turnstile->Signal();
+  turnstileB->Wait();
+  turnstileB->Signal();
   
 }
 
 int main(){
+  /**< Crafting the Semaphore for reuseable barrier. */
   std::shared_ptr<Semaphore> mutex( new Semaphore(1));
-  std::shared_ptr<Semaphore> barries( new Semaphore());
-  std::shared_ptr<Semaphore> turnstile( new Semaphore(1));
-  std::thread bob1(lunchBreak, mutex, barries, turnstile);
-  std::thread bob2(lunchBreak, mutex, barries, turnstile);
-  std::thread bob3(lunchBreak, mutex, barries, turnstile);
+  std::shared_ptr<Semaphore> turnstileA( new Semaphore());
+  std::shared_ptr<Semaphore> turnstileB( new Semaphore(1));
+
+  /**< Crafting the threads */
+  std::thread bob1(lunchBreak, mutex, turnstileA, turnstileB);
+  std::thread bob2(lunchBreak, mutex, turnstileA, turnstileB);
+  std::thread bob3(lunchBreak, mutex, turnstileA, turnstileB);
+  
   /**< Launch the threads  */
   bob1.join();
   bob2.join();
