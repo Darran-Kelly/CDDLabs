@@ -10,49 +10,54 @@
 
 
 
-int c=0; // keep a count of the threads
-int n=3; // declare number of threads
+int c=0; // keep a count of the threads.
+int n=3; // declare number of threads.
+bool q = true; // condition to end while loop.
 
 
 /**< A method for an reusable barrier. */
-void lunchBreak(std::shared_ptr<Semaphore> mutex, std::shared_ptr<Semaphore> turnstileA, std::shared_ptr<Semaphore> turnstileB){
-  mutex->Wait();
-  c++;
+void reuseable_barrier(std::shared_ptr<Semaphore> mutex, std::shared_ptr<Semaphore> turnstileA, std::shared_ptr<Semaphore> turnstileB){
+  while(q){
+      mutex->Wait();
+      c++;
 
-  /**< A test to see if thread are apearing in the right order. */
-  std::cout<<"Bob is gone to lunch" << " " << c << std::endl; 
-  if(c==n){
-    turnstileB->Wait();
-    turnstileA->Signal();
-  }
-  mutex->Signal();
-  
-  turnstileA->Wait();
-  turnstileA->Signal();
+      /**< A test to see if thread are apearing in the right order. */
+      std::cout<<"Thread:" << " " << c << std::endl;
+      
+      if(c==n){
+	turnstileB->Wait();
+	turnstileA->Signal();
+      }
+      mutex->Signal();
 
-  mutex->Wait();
-  c--;
-  if(c==0){
-    turnstileA->Wait();
-    turnstileB->Signal();
+      turnstileA->Wait();
+      turnstileA->Signal();     
+  
+      mutex->Wait();
+      c--;
+      
+      if(c==0){
+	turnstileA->Wait();
+	turnstileB->Signal();
+	q=false;
+      }
+      mutex->Signal();
+
+      turnstileB->Wait();
+      turnstileB->Signal();  
   }
-  mutex->Signal();
-  
-  turnstileB->Wait();
-  turnstileB->Signal();
-  
 }
 
 int main(){
-  /**< Crafting the Semaphore for reuseable barrier. */
+  /**< Creating the Semaphore for reuseable barrier. */
   std::shared_ptr<Semaphore> mutex( new Semaphore(1));
   std::shared_ptr<Semaphore> turnstileA( new Semaphore());
   std::shared_ptr<Semaphore> turnstileB( new Semaphore(1));
 
-  /**< Crafting the threads */
-  std::thread bob1(lunchBreak, mutex, turnstileA, turnstileB);
-  std::thread bob2(lunchBreak, mutex, turnstileA, turnstileB);
-  std::thread bob3(lunchBreak, mutex, turnstileA, turnstileB);
+  /**< Creating the threads */
+  std::thread bob1(reuseable_barrier, mutex, turnstileA, turnstileB);
+  std::thread bob2(reuseable_barrier, mutex, turnstileA, turnstileB);
+  std::thread bob3(reuseable_barrier, mutex, turnstileA, turnstileB);
   
   /**< Launch the threads  */
   bob1.join();
