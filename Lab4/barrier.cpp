@@ -11,13 +11,13 @@
 
 
 int c=0; // keep a count of the threads.
-int n=3; // declare number of threads.
+int n=4; // declare number of threads.
 bool q = true; // condition to end while loop.
 
 
 /**< A method for an reusable barrier. */
 void reuseable_barrier(std::shared_ptr<Semaphore> mutex, std::shared_ptr<Semaphore> turnstileA, std::shared_ptr<Semaphore> turnstileB){
-  while(q){
+
       mutex->Wait();
       c++;
 
@@ -39,13 +39,13 @@ void reuseable_barrier(std::shared_ptr<Semaphore> mutex, std::shared_ptr<Semapho
       if(c==0){
 	turnstileA->Wait();
 	turnstileB->Signal();
-	q=false;
+       
       }
       mutex->Signal();
 
       turnstileB->Wait();
       turnstileB->Signal();  
-  }
+  
 }
 
 int main(){
@@ -58,10 +58,12 @@ int main(){
   std::thread bob1(reuseable_barrier, mutex, turnstileA, turnstileB);
   std::thread bob2(reuseable_barrier, mutex, turnstileA, turnstileB);
   std::thread bob3(reuseable_barrier, mutex, turnstileA, turnstileB);
+  std::thread bob4(reuseable_barrier, mutex, turnstileA, turnstileB);
   
   /**< Launch the threads  */
   bob1.join();
   bob2.join();
   bob3.join();
+  bob4.join();
   return 0;
 }
