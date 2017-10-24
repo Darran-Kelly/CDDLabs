@@ -14,8 +14,8 @@ OFILES = barrier.o Semaphore.o
 	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
 
 #Compile & make executable.
-ALL: $(OFILES) 
-	$(CC) -o go $(OFILES) $(CFLAGS) $(DEBUGFLAGS)
+ALL: barrier.o Semaphore.o
+	$(CC) -o go barrier.o Semaphore.o $(HFILES) $(CFLAGS) $(DEBUGFLAGS)
 
 DEBUG: DEBUGFLAGS = -g -O0
 DEBUG: ALL
